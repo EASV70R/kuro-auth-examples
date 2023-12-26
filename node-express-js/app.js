@@ -4,7 +4,7 @@ const axios = require('axios');
 const app = express();
 const port = 3000;
 
-const apiKey = 'APIKEY';
+const apiKey = '5270283d392663007843f7081aee8b';
 
 const debug = false;
 
@@ -19,7 +19,7 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
     if (!debug) {
         const secretHeader = req.headers['x-security-header'];
-        if (secretHeader !== 'key') {
+        if (secretHeader !== 'test') {
             const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
             console.error(`Failed connection attempt from IP: ${clientIp} due to invalid header`);
             return res.status(403).json({ message: 'Invalid header' });
@@ -32,7 +32,7 @@ app.get('/login', async (req, res) => {
     const { username, password } = req.query;
 
     try {
-        const response = await axios.get(`APIENDPOINT`, {
+        const response = await axios.get(`http://kuro.dk/api/api.php`, {
             params: {
                 key: apiKey,
                 user: username,
